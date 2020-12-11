@@ -1,0 +1,12 @@
+{
+  "name": "node-js-project",
+  "version": "1.0.0",
+  "description": "make match project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "Jennifer Shin",
+  "license": "ISC"
+}
