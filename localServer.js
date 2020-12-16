@@ -1,4 +1,4 @@
-async function setUpLocalServer() {
+function setUpLocalServer() {
   const http = require('http');
 
   const hostname = '127.0.0.1';
@@ -12,9 +12,6 @@ async function setUpLocalServer() {
 
   server.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
-    return new Promise((resolve) => {
-      resolve('Promise resolved');
-    });
   });
 }
 
