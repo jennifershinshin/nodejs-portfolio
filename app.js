@@ -2,6 +2,8 @@ const localServer = require("./localServer");
 const ask = require("./ask");
 const fs = require("fs");
 
+const portfolioHtml = 'portfolio.html';
+
 const questions = ['What is your name? ',
                     'What is your occupation? ',
                     'Where do you live? ',
@@ -17,7 +19,7 @@ function convertToHTML(answers) {
     const hobbies = answers[4].split(",");
     const skills = answers[5].split(",");
 
-    var htmlString =
+    var portfolioHtmlString =
     `<!DOCTYPE html>
     <html>
     <head>
@@ -35,20 +37,30 @@ function convertToHTML(answers) {
         <h3>Hobbies
             <ul>`;
             for(var i = 0; i < hobbies.length; i++) {
-                htmlString += `<li>${hobbies[i]}</li>`;
+                portfolioHtmlString += `<li>${hobbies[i]}</li>`;
             }
-            htmlString += `</ul>
+            portfolioHtmlString += `</ul>
         </h3>
 
         <h3>Skills`;
 
             for(var i = 0; i < skills.length; i++) {
-                htmlString += `<li>${skills[i]}</li>`;
+                portfolioHtmlString += `<li>${skills[i]}</li>`;
             }
-            htmlString += `</ul>
+            portfolioHtmlString += `</ul>
         </h3>
     </body>
     </html>`;
+
+    fs.unlink(portfolioHtml, (err) => {
+        if(err) throw err;
+        console.log('\nDeleted portfolio.html to clear it from previous run.');
+    });
+
+    fs.appendFile(portfolioHtml, portfolioHtmlString, (err) => {
+        if(err) throw err;
+        console.log('Created HTML file!\n');
+    });
 }
 
 async function runApp() {
@@ -56,7 +68,7 @@ async function runApp() {
 
     convertToHTML(answers);
 
-    localServer.setUpLocalServer();
+    localServer.setUpLocalServer(portfolioHtml);
 }
 
 runApp();
